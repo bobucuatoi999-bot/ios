@@ -1,0 +1,49 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+
+## Scripts
+*.sh
+
+## Build results
+build/
+DerivedData/
+
+## Project settings
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+!xcuserdata
+
+## Bundle software
+*.omni
+*.xcworkspace
+!default.xcworkspace
+
+## Unit-test reports
+*.xcresult
+
+## Crash logs
+*.crash
+
+## Dependency manager
+# CocoaPods
+# Pods/
+# Podfile.lock
+# .pbpod
+
+# Carthage
+# Carthage/Build/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+## OS X
+.DS_Store
+*.swp
+*~

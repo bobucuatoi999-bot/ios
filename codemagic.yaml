@@ -1,0 +1,39 @@
+workflows:
+  ios-unsigned:
+    name: iOS Unsigned IPA (No Apple Account Needed)
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+
+    environment:
+      vars:
+        XCODE_PROJECT: "BinhanThietBi.xcodeproj"
+        XCODE_SCHEME: "BinhanThietBi"
+      xcode: latest
+
+    scripts:
+      - name: Build unsigned IPA
+        script: |
+          xcodebuild \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath build/BinhanThietBi.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            archive
+
+      - name: Export unsigned IPA
+        script: |
+          APP_PATH=$(find build/BinhanThietBi.xcarchive/Products/Applications -name "*.app" | head -1)
+          mkdir -p build/ipa/Payload
+          cp -r "$APP_PATH" build/ipa/Payload/
+          cd build/ipa
+          zip -r BinhanThietBi.ipa Payload/
+          cd ../..
+          cp build/ipa/BinhanThietBi.ipa BinhanThietBi.ipa
+          echo "✅ IPA created: BinhanThietBi.ipa"
+
+    artifacts:
+      - BinhanThietBi.ipa
